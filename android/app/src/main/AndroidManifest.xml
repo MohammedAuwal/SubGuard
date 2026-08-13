@@ -8,7 +8,7 @@
     <application
         android:name="${applicationName}"
         android:label="SubGuard"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@drawable/ic_launcher">
 
         <activity
             android:name=".MainActivity"
