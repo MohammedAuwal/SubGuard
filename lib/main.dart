@@ -7,6 +7,7 @@ import 'theme/app_theme.dart';
 import 'features/dashboard/dashboard_screen.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'services/notification_service.dart';
+import 'providers/locale_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,16 +19,19 @@ void main() async {
   runApp(ProviderScope(child: SubGuardApp(seenOnboarding: seenOnboarding)));
 }
 
-class SubGuardApp extends StatelessWidget {
+class SubGuardApp extends ConsumerWidget {
   final bool seenOnboarding;
   const SubGuardApp({Key? key, required this.seenOnboarding}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final locale = ref.watch(localeProvider);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
+      onGenerateTitle: (context) => AppLocalizations.of(context)?.appTitle ?? 'SubGuard',
       theme: AppTheme.darkTheme,
+      locale: locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -1,11 +1,12 @@
 import 'package:uuid/uuid.dart';
+import 'billing_cycle.dart';
 
 class Subscription {
   final String id;
   final String name;
   final double cost;
   final String currency;
-  final String billingCycle;
+  final BillingCycle billingCycle;
   final DateTime nextBillingDate;
 
   Subscription({
@@ -23,7 +24,7 @@ class Subscription {
       'name': name,
       'cost': cost,
       'currency': currency,
-      'billingCycle': billingCycle,
+      'billingCycle': billingCycle.toDatabaseString(),
       'nextBillingDate': nextBillingDate.toIso8601String(),
     };
   }
@@ -34,7 +35,7 @@ class Subscription {
       name: map['name'],
       cost: map['cost'],
       currency: map['currency'],
-      billingCycle: map['billingCycle'],
+      billingCycle: BillingCycleExtension.fromDatabaseString(map['billingCycle']),
       nextBillingDate: DateTime.parse(map['nextBillingDate']),
     );
   }
@@ -43,7 +44,7 @@ class Subscription {
     String? name,
     double? cost,
     String? currency,
-    String? billingCycle,
+    BillingCycle? billingCycle,
     DateTime? nextBillingDate,
   }) {
     return Subscription(

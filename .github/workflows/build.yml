@@ -1,14 +1,14 @@
-name: Build SubGuard
+name: Build SubGuard Production
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch: # Allows you to manually trigger a build from your phone
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build APK and AAB
+    name: Verify and Build Release
     runs-on: ubuntu-latest
 
     steps:
@@ -32,10 +32,16 @@ jobs:
       - name: Generate Localizations
         run: flutter gen-l10n
 
-      - name: Build APK (For Testing)
+      - name: Flutter Analyze
+        run: flutter analyze
+
+      - name: Flutter Test
+        run: flutter test
+
+      - name: Build APK (Release)
         run: flutter build apk --release
 
-      - name: Build App Bundle (For Google Play)
+      - name: Build App Bundle (Release)
         run: flutter build appbundle --release
 
       - name: Upload APK
