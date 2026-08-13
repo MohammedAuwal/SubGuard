@@ -1,0 +1,29 @@
+{
+  "@@locale": "en",
+  "appTitle": "SubGuard",
+  "totalMonthlySpend": "Total Monthly Spend",
+  "totalYearlySpend": "Total Yearly Spend",
+  "addSubscription": "Add Subscription",
+  "serviceName": "Service Name",
+  "cost": "Cost",
+  "currency": "Currency",
+  "billingCycle": "Billing Cycle",
+  "nextBillingDate": "Next Billing Date",
+  "monthly": "Monthly",
+  "yearly": "Yearly",
+  "save": "Save",
+  "scanReceipt": "Scan Receipt",
+  "noSubscriptions": "Keep your subscriptions under control.",
+  "addFirstSubscription": "Add your first subscription",
+  "renewsIn": "Renews in {days} days",
+  "@renewsIn": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "renewsToday": "Renews today",
+  "renewsTomorrow": "Renews tomorrow",
+  "onboardingTitle": "Welcome to SubGuard",
+  "onboardingDesc": "Track subscriptions locally. No cloud, no tracking. Get notified before you pay.",
+  "getStarted": "Get Started"
+}
