@@ -21,6 +21,13 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      - name: Fetch Gradle Wrapper Jar
+        run: |
+          mkdir -p android/gradle/wrapper
+          curl -sSL -o android/gradle/wrapper/gradle-wrapper.jar \
+            https://raw.githubusercontent.com/gradle/gradle/v8.11.1/gradle/wrapper/gradle-wrapper.jar
+          chmod +x android/gradlew
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -34,22 +41,6 @@ jobs:
 
       - name: Install Dependencies
         run: flutter pub get
-
-      - name: Generate Gradle Wrapper (in scratch dir to avoid evaluating our settings.gradle)
-        run: |
-          if [ ! -f android/gradlew ]; then
-            mkdir -p /tmp/gradle-wrapper-scratch
-            cd /tmp/gradle-wrapper-scratch
-            gradle wrapper --gradle-version 8.11.1
-            mkdir -p "$GITHUB_WORKSPACE/android/gradle/wrapper"
-            cp -r gradle/wrapper/* "$GITHUB_WORKSPACE/android/gradle/wrapper/"
-            cp gradlew "$GITHUB_WORKSPACE/android/gradlew"
-            cp gradlew.bat "$GITHUB_WORKSPACE/android/gradlew.bat"
-            chmod +x "$GITHUB_WORKSPACE/android/gradlew"
-          fi
-
-      - name: Flutter Clean
-        run: flutter clean && flutter pub get
 
       - name: Generate Localizations
         run: flutter gen-l10n

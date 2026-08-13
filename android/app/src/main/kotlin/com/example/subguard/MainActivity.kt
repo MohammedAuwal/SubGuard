@@ -1,4 +1,4 @@
-package com.example.subguard
+package com.nassaracoretech.subguard
 
 import io.flutter.embedding.android.FlutterActivity
 
