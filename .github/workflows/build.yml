@@ -25,7 +25,14 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          
+          flutter-version: '3.32.0'
+
+      - name: Remove stale lockfile and old registrant artifacts
+        run: |
+          rm -f pubspec.lock
+          find android -iname "GeneratedPluginRegistrant*" -print -delete || true
+          flutter clean
+
       - name: Install Dependencies
         run: flutter pub get
 
