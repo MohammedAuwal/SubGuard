@@ -62,7 +62,8 @@ class SubscriptionNotifier extends StateNotifier<SubscriptionState> {
   Future<AppLocalizations> _getHeadlessL10n() async {
     final prefs = await SharedPreferences.getInstance();
     final langCode = prefs.getString('app_locale') ?? 'en';
-    return lookupAppLocalizations(Locale(langCode));
+    // Fixed: Properly loading delegate instead of relying on missing global lookup function
+    return await AppLocalizations.delegate.load(Locale(langCode));
   }
 
   Future<void> loadAndAdvanceSubscriptions() async {
@@ -70,15 +71,12 @@ class SubscriptionNotifier extends StateNotifier<SubscriptionState> {
     try {
       final subs = await DatabaseHelper.instance.getAllSubscriptions();
       final now = DateTime.now();
-      bool wasUpdated = false;
       
-      // Load user language for headless background string generation
       final l10n = await _getHeadlessL10n();
 
       for (int i = 0; i < subs.length; i++) {
         final sub = subs[i];
         
-        // Reconcile overdue subscriptions upon boot
         if (sub.nextBillingDate.isBefore(now) && !sub.nextBillingDate.isAtSameMomentAs(now)) {
           final nextDate = RecurringBillingService.calculateNextBillingDate(sub.nextBillingDate, sub.billingCycle, nowOverride: now);
           
@@ -94,7 +92,6 @@ class SubscriptionNotifier extends StateNotifier<SubscriptionState> {
             );
             
             subs[i] = updatedSub;
-            wasUpdated = true;
           }
         }
       }
@@ -117,7 +114,7 @@ class SubscriptionNotifier extends StateNotifier<SubscriptionState> {
       await loadAndAdvanceSubscriptions();
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
-      throw e; // Rethrow so the UI can catch and prevent pop()
+      throw e; 
     }
   }
 

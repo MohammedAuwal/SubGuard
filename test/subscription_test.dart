@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:subguard/models/subscription.dart';
+import 'package:subguard/models/billing_cycle.dart';
 
 void main() {
   group('Subscription Model Tests', () {
@@ -8,7 +9,7 @@ void main() {
         name: 'Netflix',
         cost: 15.99,
         currency: 'USD',
-        billingCycle: 'Monthly',
+        billingCycle: BillingCycle.monthly, // Fixed string to Enum
         nextBillingDate: DateTime(2026, 9, 1),
       );
       expect(sub.id, isNotNull);
@@ -22,7 +23,7 @@ void main() {
         name: 'Spotify',
         cost: 9.99,
         currency: 'EUR',
-        billingCycle: 'Monthly',
+        billingCycle: BillingCycle.monthly, // Fixed string to Enum
         nextBillingDate: date,
       );
 
@@ -31,7 +32,7 @@ void main() {
       expect(map['name'], 'Spotify');
       expect(map['cost'], 9.99);
       expect(map['currency'], 'EUR');
-      expect(map['billingCycle'], 'Monthly');
+      expect(map['billingCycle'], 'monthly'); // Enum converts to 'monthly' via .name
       expect(map['nextBillingDate'], date.toIso8601String());
     });
   });

@@ -32,7 +32,7 @@ class SubGuardApp extends ConsumerWidget {
       onGenerateTitle: (context) => AppLocalizations.of(context)?.appTitle ?? 'SubGuard',
       theme: AppTheme.darkTheme,
       locale: locale,
-      localizationsDelegates: const [
+      localizationsDelegates: [ // Removed 'const' here to fix the compiler error
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

@@ -70,7 +70,6 @@ class _SubscriptionFormScreenState extends ConsumerState<SubscriptionFormScreen>
     );
     if (picked != null && picked != _nextBillingDate) {
       setState(() {
-        // Enforce local time explicitly
         _nextBillingDate = DateTime(picked.year, picked.month, picked.day, 12, 0); 
       });
     }
@@ -193,23 +192,27 @@ class _SubscriptionFormScreenState extends ConsumerState<SubscriptionFormScreen>
                         Expanded(
                           flex: 1,
                           child: DropdownButtonFormField<String>(
-                            value: _currency,
+                            initialValue: _currency, // Fixed deprecation
                             decoration: InputDecoration(labelText: l10n.currency),
                             items: _supportedCurrencies.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
-                            onChanged: (val) => setState(() => _currency = val!),
+                            onChanged: (val) {
+                              if (val != null) setState(() => _currency = val);
+                            },
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<BillingCycle>(
-                      value: _billingCycle,
+                      initialValue: _billingCycle, // Fixed deprecation
                       decoration: InputDecoration(labelText: l10n.billingCycle),
                       items: [
                         DropdownMenuItem(value: BillingCycle.monthly, child: Text(l10n.monthly)),
                         DropdownMenuItem(value: BillingCycle.yearly, child: Text(l10n.yearly)),
                       ],
-                      onChanged: (val) => setState(() => _billingCycle = val!),
+                      onChanged: (val) {
+                         if (val != null) setState(() => _billingCycle = val);
+                      },
                     ),
                     const SizedBox(height: 16),
                     ListTile(

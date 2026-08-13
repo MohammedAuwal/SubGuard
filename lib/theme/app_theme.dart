@@ -18,9 +18,9 @@ class AppTheme {
       elevation: 0,
       centerTitle: true,
     ),
-    cardTheme: CardTheme(
-      color: const Color(0xFF1A1A24),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    cardTheme: const CardThemeData( // Fixed SDK structural change
+      color: Color(0xFF1A1A24),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16))),
       elevation: 4,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -44,6 +44,6 @@ class AppTheme {
         borderSide: const BorderSide(color: Color(0xFF00E5FF), width: 2),
       ),
     ),
-    fontFamily: 'Roboto', // Defaulting to system sans-serif which is clean
+    fontFamily: 'Roboto',
   );
 }
