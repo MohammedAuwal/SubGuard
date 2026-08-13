@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:subguard/l10n/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../providers/locale_provider.dart';
 import '../../services/notification_service.dart';
@@ -43,7 +43,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     } else {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Permission denied.')), // Recommend adding to ARB in final pass
+          const SnackBar(content: Text('Permission denied.')), 
         );
       }
     }

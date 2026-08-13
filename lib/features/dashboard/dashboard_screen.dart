@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:subguard/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import '../../providers/subscription_provider.dart';
 import '../subscription/subscription_form_screen.dart';
@@ -34,7 +34,6 @@ class DashboardScreen extends ConsumerWidget {
       final formatter = NumberFormat.simpleCurrency(name: currencyCode);
       return formatter.format(amount);
     } catch (e) {
-      // Fallback if the currency code is unsupported by the local environment
       return '$currencyCode ${amount.toStringAsFixed(2)}';
     }
   }

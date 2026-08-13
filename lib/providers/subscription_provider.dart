@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:subguard/l10n/app_localizations.dart';
 import '../models/subscription.dart';
 import '../models/billing_cycle.dart';
 import '../data/database_helper.dart';
@@ -62,7 +62,6 @@ class SubscriptionNotifier extends StateNotifier<SubscriptionState> {
   Future<AppLocalizations> _getHeadlessL10n() async {
     final prefs = await SharedPreferences.getInstance();
     final langCode = prefs.getString('app_locale') ?? 'en';
-    // Fixed: Properly loading delegate instead of relying on missing global lookup function
     return await AppLocalizations.delegate.load(Locale(langCode));
   }
 

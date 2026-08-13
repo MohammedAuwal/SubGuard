@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:subguard/l10n/app_localizations.dart';
 import 'package:uuid/uuid.dart';
 import '../../models/subscription.dart';
 import '../../models/billing_cycle.dart';
@@ -192,7 +192,7 @@ class _SubscriptionFormScreenState extends ConsumerState<SubscriptionFormScreen>
                         Expanded(
                           flex: 1,
                           child: DropdownButtonFormField<String>(
-                            initialValue: _currency, // Fixed deprecation
+                            initialValue: _currency, 
                             decoration: InputDecoration(labelText: l10n.currency),
                             items: _supportedCurrencies.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
                             onChanged: (val) {
@@ -204,7 +204,7 @@ class _SubscriptionFormScreenState extends ConsumerState<SubscriptionFormScreen>
                     ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<BillingCycle>(
-                      initialValue: _billingCycle, // Fixed deprecation
+                      initialValue: _billingCycle, 
                       decoration: InputDecoration(labelText: l10n.billingCycle),
                       items: [
                         DropdownMenuItem(value: BillingCycle.monthly, child: Text(l10n.monthly)),
