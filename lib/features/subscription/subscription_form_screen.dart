@@ -192,7 +192,7 @@ class _SubscriptionFormScreenState extends ConsumerState<SubscriptionFormScreen>
                         Expanded(
                           flex: 1,
                           child: DropdownButtonFormField<String>(
-                            initialValue: _currency, 
+                            value: _currency, 
                             decoration: InputDecoration(labelText: l10n.currency),
                             items: _supportedCurrencies.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
                             onChanged: (val) {
@@ -204,7 +204,7 @@ class _SubscriptionFormScreenState extends ConsumerState<SubscriptionFormScreen>
                     ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<BillingCycle>(
-                      initialValue: _billingCycle, 
+                      value: _billingCycle, 
                       decoration: InputDecoration(labelText: l10n.billingCycle),
                       items: [
                         DropdownMenuItem(value: BillingCycle.monthly, child: Text(l10n.monthly)),
