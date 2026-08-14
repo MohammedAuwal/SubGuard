@@ -17,7 +17,7 @@ class NotificationService {
       final TimezoneInfo timezoneInfo = await FlutterTimezone.getLocalTimezone();
       tz.setLocalLocation(tz.getLocation(timezoneInfo.identifier));
 
-      const AndroidInitializationSettings androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
+      const AndroidInitializationSettings androidSettings = AndroidInitializationSettings('@drawable/ic_launcher');
       
       // Darwin settings for iOS implementation readiness
       const DarwinInitializationSettings darwinSettings = DarwinInitializationSettings(
