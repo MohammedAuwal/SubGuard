@@ -68,3 +68,33 @@ jobs:
         with:
           name: subguard-aab
           path: build/app/outputs/bundle/release/app-release.aab
+
+  crash-diagnose:
+    name: Install on Emulator and Capture Crash Log
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: subguard-apk
+          path: apk
+
+      - name: Run on Android Emulator and capture logcat
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          arch: x86_64
+          profile: pixel_5
+          script: |
+            adb logcat -c
+            adb install apk/app-release.apk
+            adb shell monkey -p com.example.subguard -c android.intent.category.LAUNCHER 1
+            sleep 10
+            adb logcat -d > emulator_logcat.txt
+
+      - name: Upload Crash Log
+        uses: actions/upload-artifact@v4
+        with:
+          name: crash-logcat
+          path: emulator_logcat.txt
