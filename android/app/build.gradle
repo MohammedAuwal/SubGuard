@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.subguard"
+    namespace = "com.nassaracoretech.subguard"
     compileSdk = 36
     ndkVersion = "27.0.12077973"
 
@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.subguard"
+        applicationId = "com.nassaracoretech.subguard"
         minSdk = flutter.minSdkVersion
         targetSdk = 36
         versionCode = flutter.versionCode
