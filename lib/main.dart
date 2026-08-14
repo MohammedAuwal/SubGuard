@@ -11,12 +11,27 @@ import 'providers/locale_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService.instance.initialize();
-  
-  final prefs = await SharedPreferences.getInstance();
-  final seenOnboarding = prefs.getBool('seenOnboarding') ?? false;
+
+  bool seenOnboarding = false;
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    seenOnboarding = prefs.getBool('seenOnboarding') ?? false;
+  } catch (_) {
+    // If prefs fail to load for any reason, default to onboarding rather than crashing.
+  }
 
   runApp(ProviderScope(child: SubGuardApp(seenOnboarding: seenOnboarding)));
+
+  // Initialize notifications AFTER the UI is already showing, and never let
+  // a failure here bring down the app. This runs on the next event loop
+  // turn so first frame is not blocked by any native plugin work.
+  Future.delayed(Duration.zero, () async {
+    try {
+      await NotificationService.instance.initialize();
+    } catch (e, st) {
+      debugPrint('Notification init failed (non-fatal): $e\n$st');
+    }
+  });
 }
 
 class SubGuardApp extends ConsumerWidget {
